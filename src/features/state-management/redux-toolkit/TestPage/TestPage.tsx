@@ -10,6 +10,7 @@ import { WordsContainer } from "src/features/state-management/redux-toolkit/Test
 import css from "./TestPage.module.css";
 import { useState } from "react";
 import { useTestPageDispatch } from "src/features/state-management/redux-toolkit/TestPage/store/hooks/useAppDispatch";
+import { PageHeader } from "src/core/components/PageHeader/PageHeader";
 
 interface ITestPageProps {}
 
@@ -25,7 +26,7 @@ const TestPage: React.FC<ITestPageProps> = () => {
     return (
         <Grid container direction={"column"}>
             <Grid item>
-                <h1>Трогаем redux-toolkit</h1>
+                <PageHeader>Трогаем redux-toolkit</PageHeader>
             </Grid>
             <Grid item>
                 <div>
