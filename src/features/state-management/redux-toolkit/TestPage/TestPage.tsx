@@ -1,20 +1,26 @@
 import * as React from "react";
 import { Button, Grid, TextField } from "@mui/material";
-import { useAppSelector } from "src/features/state-management/redux-toolkit/store/hooks/useAppSelector";
-import { selectWords } from "src/features/state-management/redux-toolkit/store/slices/Words/wordsSlice";
+import { useAppSelector } from "src/features/state-management/redux-toolkit/TestPage/store/hooks/useAppSelector";
+import {
+    addWordToDictionary,
+    removeWordFromDictionary,
+    selectWords,
+} from "src/features/state-management/redux-toolkit/TestPage/store/slices/Words/wordsSlice";
 import { WordsContainer } from "src/features/state-management/redux-toolkit/TestPage/components/WordsCointainer/WordsContainer";
 import css from "./TestPage.module.css";
 import { useState } from "react";
+import { useTestPageDispatch } from "src/features/state-management/redux-toolkit/TestPage/store/hooks/useAppDispatch";
 
 interface ITestPageProps {}
 
 const TestPage: React.FC<ITestPageProps> = () => {
     const words = useAppSelector(selectWords);
+    const dispatch = useTestPageDispatch();
 
-    const [addWord, setAddWord] = useState("");
-    const [addWordAsync, setAddWordAsync] = useState("");
-    const [removeWord, setRemoveWord] = useState("");
-    const [removeWordAsync, setRemoveWordAsync] = useState("");
+    const [addWordValue, setAddWordValue] = useState("");
+    const [addWordValueAsync, setAddWordValueAsync] = useState("");
+    const [removeWordValue, setRemoveWordValue] = useState("");
+    const [removeWordValueAsync, setRemoveWordValueAsync] = useState("");
 
     return (
         <Grid container direction={"column"}>
@@ -39,15 +45,26 @@ const TestPage: React.FC<ITestPageProps> = () => {
                         >
                             <Grid item>
                                 <TextField
-                                    value={addWord}
-                                    onChange={(e) => setAddWord(e.target.value)}
+                                    value={addWordValue}
+                                    onChange={(e) =>
+                                        setAddWordValue(e.target.value)
+                                    }
                                     type={"text"}
                                     variant={"standard"}
                                 />
                                 <div>
                                     <Button
                                         size={"small"}
-                                        disabled={!addWord.length}
+                                        disabled={!addWordValue.length}
+                                        onClick={() => {
+                                            dispatch(
+                                                addWordToDictionary(
+                                                    addWordValue
+                                                )
+                                            );
+
+                                            setAddWordValue("");
+                                        }}
                                     >
                                         Добавить
                                     </Button>
@@ -56,9 +73,9 @@ const TestPage: React.FC<ITestPageProps> = () => {
                             <Grid item>или</Grid>
                             <Grid item>
                                 <TextField
-                                    value={addWordAsync}
+                                    value={addWordValueAsync}
                                     onChange={(e) =>
-                                        setAddWordAsync(e.target.value)
+                                        setAddWordValueAsync(e.target.value)
                                     }
                                     type={"text"}
                                     variant={"standard"}
@@ -66,7 +83,7 @@ const TestPage: React.FC<ITestPageProps> = () => {
                                 <div>
                                     <Button
                                         size={"small"}
-                                        disabled={!addWordAsync.length}
+                                        disabled={!addWordValueAsync.length}
                                     >
                                         Добавить (асинхронно)
                                     </Button>
@@ -84,9 +101,9 @@ const TestPage: React.FC<ITestPageProps> = () => {
                         >
                             <Grid item>
                                 <TextField
-                                    value={removeWord}
+                                    value={removeWordValue}
                                     onChange={(e) =>
-                                        setRemoveWord(e.target.value)
+                                        setRemoveWordValue(e.target.value)
                                     }
                                     type={"text"}
                                     variant={"standard"}
@@ -94,7 +111,16 @@ const TestPage: React.FC<ITestPageProps> = () => {
                                 <div>
                                     <Button
                                         size={"small"}
-                                        disabled={!removeWord.length}
+                                        disabled={!removeWordValue.length}
+                                        onClick={() => {
+                                            dispatch(
+                                                removeWordFromDictionary(
+                                                    removeWordValue
+                                                )
+                                            );
+
+                                            setRemoveWordValue("");
+                                        }}
                                     >
                                         Удалить
                                     </Button>
@@ -103,9 +129,9 @@ const TestPage: React.FC<ITestPageProps> = () => {
                             <Grid item>или</Grid>
                             <Grid item>
                                 <TextField
-                                    value={removeWordAsync}
+                                    value={removeWordValueAsync}
                                     onChange={(e) =>
-                                        setRemoveWordAsync(e.target.value)
+                                        setRemoveWordValueAsync(e.target.value)
                                     }
                                     type={"text"}
                                     variant={"standard"}
@@ -113,7 +139,7 @@ const TestPage: React.FC<ITestPageProps> = () => {
                                 <div>
                                     <Button
                                         size={"small"}
-                                        disabled={!removeWordAsync.length}
+                                        disabled={!removeWordValueAsync.length}
                                     >
                                         Удалить (асинхронно)
                                     </Button>

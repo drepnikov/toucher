@@ -3,15 +3,11 @@ import ReactDOM from "react-dom";
 import { App } from "src/core/App";
 import reportWebVitals from "./reportWebVitals";
 import { CssBaseline } from "@mui/material";
-import { Provider } from "react-redux";
-import { store } from "src/features/state-management/redux-toolkit/store/store";
 
 ReactDOM.render(
     <React.StrictMode>
-        <Provider store={store}>
-            <CssBaseline />
-            <App />
-        </Provider>
+        <CssBaseline />
+        <App />
     </React.StrictMode>,
     document.getElementById("root")
 );

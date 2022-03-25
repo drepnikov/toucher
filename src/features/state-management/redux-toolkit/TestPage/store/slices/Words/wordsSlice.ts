@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "src/features/state-management/redux-toolkit/store/store";
+import { TestPageRootState } from "src/features/state-management/redux-toolkit/TestPage/store/store";
 
 interface IWordsInitialState {
     currentDictionary: string[];
@@ -13,10 +13,10 @@ const wordsSlice = createSlice({
     name: "Words",
     initialState,
     reducers: {
-        addWord: (state, action: PayloadAction<string>) => {
+        addWordToDictionary: (state, action: PayloadAction<string>) => {
             state.currentDictionary.push(action.payload);
         },
-        removeWord: (state, action: PayloadAction<string>) => {
+        removeWordFromDictionary: (state, action: PayloadAction<string>) => {
             state.currentDictionary = state.currentDictionary.filter(
                 (word) => word !== action.payload
             );
@@ -25,7 +25,9 @@ const wordsSlice = createSlice({
 });
 
 export const wordsReducer = wordsSlice.reducer;
-export const { removeWord, addWord } = wordsSlice.actions;
+export const { removeWordFromDictionary, addWordToDictionary } =
+    wordsSlice.actions;
 
 // selectors
-export const selectWords = (state: RootState) => state.words.currentDictionary;
+export const selectWords = (state: TestPageRootState) =>
+    state.words.currentDictionary;
