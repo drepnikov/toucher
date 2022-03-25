@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { wordsReducer } from "src/features/state-management/redux-toolkit/store/slices/Words/wordsSlice";
 
 export const store = configureStore({
