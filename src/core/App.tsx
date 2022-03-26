@@ -1,6 +1,6 @@
 import * as React from "react";
 import { TestPage } from "src/touchers/state-management/redux-toolkit/TestPage/TestPage";
-import { TestPageStore } from "src/touchers/state-management/redux-toolkit/TestPage/store/store";
+import { TestPageStore } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithoutRTKQuery/store";
 import { Provider } from "react-redux";
 import { BottomNav } from "src/core/components/BottomNavigation/BottomNav";
 import { Container, Paper } from "@mui/material";

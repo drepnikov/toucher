@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { wordsReducer } from "src/touchers/state-management/redux-toolkit/TestPage/store/slices/Words/wordsSlice";
+import { wordsReducer } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithoutRTKQuery/slices/Words/wordsSlice";
 
 export const TestPageStore = configureStore({
     reducer: {

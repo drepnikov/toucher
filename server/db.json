@@ -1,3 +1,14 @@
 {
-    "words": ["i am going outside", "i'm not going outside"]
+    "words": {
+        "items": [
+            {
+                "value": "Cat",
+                "id": 1
+            },
+            {
+                "value": "Dog",
+                "id": 2
+            }
+        ]
+    }
 }

@@ -1,27 +1,55 @@
 import * as React from "react";
-import { Button, Grid, TextField } from "@mui/material";
-import { useAppSelector } from "src/touchers/state-management/redux-toolkit/TestPage/store/hooks/useAppSelector";
 import {
-    addWordToDictionary,
-    removeWordFromDictionary,
+    Button,
+    Grid,
+    TextField,
+    Dialog,
+    DialogTitle,
+    CircularProgress,
+} from "@mui/material";
+import {
+    addWordToDictionarySync,
+    fetchWordsAsync,
+    removeWordFromDictionarySync,
+    selectLoadingStatus,
     selectWords,
-} from "src/touchers/state-management/redux-toolkit/TestPage/store/slices/Words/wordsSlice";
+} from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithoutRTKQuery/slices/Words/wordsSlice";
 import { WordsContainer } from "src/touchers/state-management/redux-toolkit/TestPage/components/WordsCointainer/WordsContainer";
-import css from "./TestPage.module.css";
-import { useState } from "react";
-import { useTestPageDispatch } from "src/touchers/state-management/redux-toolkit/TestPage/store/hooks/useAppDispatch";
+import { useEffect, useState } from "react";
 import { PageHeader } from "src/core/components/PageHeader/PageHeader";
+import { useTestPageDispatch } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithoutRTKQuery/hooks/useAppDispatch";
+import { useAppSelector } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithoutRTKQuery/hooks/useAppSelector";
 
 interface ITestPageProps {}
 
 const TestPage: React.FC<ITestPageProps> = () => {
-    const words = useAppSelector(selectWords);
     const dispatch = useTestPageDispatch();
+    const words = useAppSelector(selectWords);
+    const loading = useAppSelector(selectLoadingStatus);
 
     const [addWordValue, setAddWordValue] = useState("");
     const [addWordValueAsync, setAddWordValueAsync] = useState("");
     const [removeWordValue, setRemoveWordValue] = useState("");
     const [removeWordValueAsync, setRemoveWordValueAsync] = useState("");
+
+    useEffect(() => {
+        dispatch(fetchWordsAsync());
+    }, [dispatch]);
+
+    if (loading) {
+        return (
+            <Dialog open={true}>
+                <DialogTitle sx={{ px: 20 }}>Загрузка</DialogTitle>
+                <CircularProgress
+                    sx={{
+                        my: 5,
+                        mx: "auto",
+                    }}
+                    size={60}
+                />
+            </Dialog>
+        );
+    }
 
     return (
         <Grid container direction={"column"}>
@@ -41,7 +69,6 @@ const TestPage: React.FC<ITestPageProps> = () => {
                         <Grid
                             container
                             flexDirection={"column"}
-                            className={css.inputFieldContainer}
                             justifyContent={"space-between"}
                         >
                             <Grid item>
@@ -59,9 +86,10 @@ const TestPage: React.FC<ITestPageProps> = () => {
                                         disabled={!addWordValue.length}
                                         onClick={() => {
                                             dispatch(
-                                                addWordToDictionary(
-                                                    addWordValue
-                                                )
+                                                addWordToDictionarySync({
+                                                    id: Date.now(),
+                                                    value: addWordValue,
+                                                })
                                             );
 
                                             setAddWordValue("");
@@ -97,7 +125,6 @@ const TestPage: React.FC<ITestPageProps> = () => {
                         <Grid
                             container
                             flexDirection={"column"}
-                            className={css.inputFieldContainer}
                             justifyContent={"space-between"}
                         >
                             <Grid item>
@@ -115,9 +142,10 @@ const TestPage: React.FC<ITestPageProps> = () => {
                                         disabled={!removeWordValue.length}
                                         onClick={() => {
                                             dispatch(
-                                                removeWordFromDictionary(
-                                                    removeWordValue
-                                                )
+                                                removeWordFromDictionarySync({
+                                                    id: Date.now(),
+                                                    value: removeWordValue,
+                                                })
                                             );
 
                                             setRemoveWordValue("");

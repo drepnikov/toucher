@@ -10,7 +10,6 @@ export enum BottomNavItemsEnum {
 }
 
 interface IBottomNavProps {
-    className?: string;
     currentValue: string;
 }
 
