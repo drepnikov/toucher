@@ -1,14 +1,39 @@
 {
-    "words": {
-        "items": [
-            {
-                "value": "Cat",
-                "id": 1
-            },
-            {
-                "value": "Dog",
-                "id": 2
-            }
-        ]
+  "todos": [
+    {
+      "value": "Потрогать redux-toolkit",
+      "id": 1,
+      "completed": false
+    },
+    {
+      "value": "Hello2",
+      "completed": false,
+      "id": 2
+    },
+    {
+      "value": "123",
+      "completed": false,
+      "id": 3
+    },
+    {
+      "value": "Hello2",
+      "completed": false,
+      "id": 4
+    },
+    {
+      "value": "123",
+      "completed": false,
+      "id": 5
+    },
+    {
+      "value": "Привет мир",
+      "completed": true,
+      "id": 6
+    },
+    {
+      "value": "Что тебе",
+      "completed": false,
+      "id": 7
     }
+  ]
 }

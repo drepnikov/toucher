@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { wordsReducer } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithoutRTKQuery/slices/Words/wordsSlice";
+import { TodoListReducer } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithoutRTKQuery/slices/TodoListSlice";
 
 export const TestPageStore = configureStore({
     reducer: {
-        words: wordsReducer,
+        TodoList: TodoListReducer,
     },
 });
 

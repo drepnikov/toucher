@@ -25,8 +25,8 @@
     },
     "scripts": {
         "start": "react-scripts start",
-        "dev": "concurrently \"npm run startServer\" \"npm run start\"",
-        "startServer": "json-server server/db.json -p 3001",
+        "dev": "concurrently \"npm run startJSONServer\" \"npm run start\"",
+        "startJSONServer": "json-server -w server/db.json -p 3001",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"

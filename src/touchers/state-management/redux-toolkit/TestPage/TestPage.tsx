@@ -1,184 +1,116 @@
 import * as React from "react";
 import {
+    Box,
     Button,
-    Grid,
+    Checkbox,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
     TextField,
-    Dialog,
-    DialogTitle,
-    CircularProgress,
 } from "@mui/material";
-import {
-    addWordToDictionarySync,
-    fetchWordsAsync,
-    removeWordFromDictionarySync,
-    selectLoadingStatus,
-    selectWords,
-} from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithoutRTKQuery/slices/Words/wordsSlice";
-import { WordsContainer } from "src/touchers/state-management/redux-toolkit/TestPage/components/WordsCointainer/WordsContainer";
 import { useEffect, useState } from "react";
 import { PageHeader } from "src/core/components/PageHeader/PageHeader";
 import { useTestPageDispatch } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithoutRTKQuery/hooks/useAppDispatch";
 import { useAppSelector } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithoutRTKQuery/hooks/useAppSelector";
+import {
+    addTodoAction,
+    clearError,
+    fetchTodosAction,
+    selectErrorStatus,
+    selectLoadingStatus,
+    selectTodos,
+    toggleTodoCompletedAction,
+} from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithoutRTKQuery/slices/TodoListSlice";
+import { LoaderPopup } from "src/core/components/Loader/LoaderPopup";
+import { ErrorPopup } from "src/core/components/ErrorPopup/ErrorPopup";
 
 interface ITestPageProps {}
 
 const TestPage: React.FC<ITestPageProps> = () => {
     const dispatch = useTestPageDispatch();
-    const words = useAppSelector(selectWords);
-    const loading = useAppSelector(selectLoadingStatus);
 
-    const [addWordValue, setAddWordValue] = useState("");
-    const [addWordValueAsync, setAddWordValueAsync] = useState("");
-    const [removeWordValue, setRemoveWordValue] = useState("");
-    const [removeWordValueAsync, setRemoveWordValueAsync] = useState("");
+    const todos = useAppSelector(selectTodos);
+    const loading = useAppSelector(selectLoadingStatus);
+    const error = useAppSelector(selectErrorStatus);
+
+    const [newWordValue, setNewWordValue] = useState("");
 
     useEffect(() => {
-        dispatch(fetchWordsAsync());
+        dispatch(fetchTodosAction());
     }, [dispatch]);
 
-    if (loading) {
-        return (
-            <Dialog open={true}>
-                <DialogTitle sx={{ px: 20 }}>Загрузка</DialogTitle>
-                <CircularProgress
-                    sx={{
-                        my: 5,
-                        mx: "auto",
-                    }}
-                    size={60}
-                />
-            </Dialog>
-        );
-    }
-
     return (
-        <Grid container direction={"column"}>
-            <Grid item>
+        <div>
+            <LoaderPopup open={loading} />
+            <ErrorPopup
+                open={Boolean(error)}
+                message={error}
+                onClose={() => {
+                    dispatch(clearError());
+                }}
+            />
+            <div>
                 <PageHeader>Трогаем redux-toolkit</PageHeader>
-            </Grid>
-            <Grid item>
-                <div>
-                    <h3>Избранные слова</h3>
-                    <WordsContainer words={words} />
-                </div>
-            </Grid>
-            <Grid item>
-                <Grid container columnSpacing={5}>
-                    <Grid item>
-                        <h3>Добавить слово</h3>
-                        <Grid
-                            container
-                            flexDirection={"column"}
-                            justifyContent={"space-between"}
-                        >
-                            <Grid item>
-                                <TextField
-                                    value={addWordValue}
-                                    onChange={(e) =>
-                                        setAddWordValue(e.target.value)
-                                    }
-                                    type={"text"}
-                                    variant={"standard"}
-                                />
-                                <div>
-                                    <Button
-                                        size={"small"}
-                                        disabled={!addWordValue.length}
-                                        onClick={() => {
-                                            dispatch(
-                                                addWordToDictionarySync({
-                                                    id: Date.now(),
-                                                    value: addWordValue,
-                                                })
-                                            );
+            </div>
+            <div>
+                <List sx={{ width: "700px" }}>
+                    {todos.map((todo) => {
+                        return (
+                            <ListItem
+                                key={todo.id}
+                                sx={{ p: 0 }}
+                                // secondaryAction={
+                                //     <IconButton edge="end">
+                                //         <EditIcon />
+                                //     </IconButton>
+                                // }
+                            >
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <Checkbox
+                                            edge="start"
+                                            checked={todo.completed}
+                                            onChange={() => {
+                                                dispatch(
+                                                    toggleTodoCompletedAction(
+                                                        todo
+                                                    )
+                                                );
+                                            }}
+                                            disableRipple
+                                        />
+                                    </ListItemIcon>
+                                    <ListItemText primary={todo.value} />
+                                </ListItemButton>
+                            </ListItem>
+                        );
+                    })}
 
-                                            setAddWordValue("");
-                                        }}
-                                    >
-                                        Добавить
-                                    </Button>
-                                </div>
-                            </Grid>
-                            <Grid item>или</Grid>
-                            <Grid item>
-                                <TextField
-                                    value={addWordValueAsync}
-                                    onChange={(e) =>
-                                        setAddWordValueAsync(e.target.value)
-                                    }
-                                    type={"text"}
-                                    variant={"standard"}
-                                />
-                                <div>
-                                    <Button
-                                        size={"small"}
-                                        disabled={!addWordValueAsync.length}
-                                    >
-                                        Добавить (асинхронно)
-                                    </Button>
-                                </div>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item>
-                        <h3>Удалить слово</h3>
-                        <Grid
-                            container
-                            flexDirection={"column"}
-                            justifyContent={"space-between"}
-                        >
-                            <Grid item>
-                                <TextField
-                                    value={removeWordValue}
-                                    onChange={(e) =>
-                                        setRemoveWordValue(e.target.value)
-                                    }
-                                    type={"text"}
-                                    variant={"standard"}
-                                />
-                                <div>
-                                    <Button
-                                        size={"small"}
-                                        disabled={!removeWordValue.length}
-                                        onClick={() => {
-                                            dispatch(
-                                                removeWordFromDictionarySync({
-                                                    id: Date.now(),
-                                                    value: removeWordValue,
-                                                })
-                                            );
+                    <Box sx={{ pl: "15px" }}>
+                        <TextField
+                            type={"text"}
+                            variant={"standard"}
+                            value={newWordValue}
+                            onChange={(e) => {
+                                setNewWordValue(e.target.value);
+                            }}
+                        />{" "}
+                        <Button
+                            disabled={!newWordValue.length}
+                            onClick={() => {
+                                dispatch(addTodoAction(newWordValue));
 
-                                            setRemoveWordValue("");
-                                        }}
-                                    >
-                                        Удалить
-                                    </Button>
-                                </div>
-                            </Grid>
-                            <Grid item>или</Grid>
-                            <Grid item>
-                                <TextField
-                                    value={removeWordValueAsync}
-                                    onChange={(e) =>
-                                        setRemoveWordValueAsync(e.target.value)
-                                    }
-                                    type={"text"}
-                                    variant={"standard"}
-                                />
-                                <div>
-                                    <Button
-                                        size={"small"}
-                                        disabled={!removeWordValueAsync.length}
-                                    >
-                                        Удалить (асинхронно)
-                                    </Button>
-                                </div>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </Grid>
+                                setNewWordValue("");
+                            }}
+                        >
+                            Добавить слово
+                        </Button>
+                    </Box>
+                </List>
+            </div>
+        </div>
     );
 };
 
