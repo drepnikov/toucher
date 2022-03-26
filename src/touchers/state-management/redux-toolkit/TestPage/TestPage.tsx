@@ -1,15 +1,15 @@
 import * as React from "react";
 import { Button, Grid, TextField } from "@mui/material";
-import { useAppSelector } from "src/features/state-management/redux-toolkit/TestPage/store/hooks/useAppSelector";
+import { useAppSelector } from "src/touchers/state-management/redux-toolkit/TestPage/store/hooks/useAppSelector";
 import {
     addWordToDictionary,
     removeWordFromDictionary,
     selectWords,
-} from "src/features/state-management/redux-toolkit/TestPage/store/slices/Words/wordsSlice";
-import { WordsContainer } from "src/features/state-management/redux-toolkit/TestPage/components/WordsCointainer/WordsContainer";
+} from "src/touchers/state-management/redux-toolkit/TestPage/store/slices/Words/wordsSlice";
+import { WordsContainer } from "src/touchers/state-management/redux-toolkit/TestPage/components/WordsCointainer/WordsContainer";
 import css from "./TestPage.module.css";
 import { useState } from "react";
-import { useTestPageDispatch } from "src/features/state-management/redux-toolkit/TestPage/store/hooks/useAppDispatch";
+import { useTestPageDispatch } from "src/touchers/state-management/redux-toolkit/TestPage/store/hooks/useAppDispatch";
 import { PageHeader } from "src/core/components/PageHeader/PageHeader";
 
 interface ITestPageProps {}
@@ -35,7 +35,7 @@ const TestPage: React.FC<ITestPageProps> = () => {
                 </div>
             </Grid>
             <Grid item>
-                <Grid container spacing={5}>
+                <Grid container columnSpacing={5}>
                     <Grid item>
                         <h3>Добавить слово</h3>
                         <Grid

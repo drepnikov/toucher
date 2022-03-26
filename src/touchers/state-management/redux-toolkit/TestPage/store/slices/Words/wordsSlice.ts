@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TestPageRootState } from "src/features/state-management/redux-toolkit/TestPage/store/store";
+import { TestPageRootState } from "src/touchers/state-management/redux-toolkit/TestPage/store/store";
 
 interface IWordsInitialState {
     currentDictionary: string[];
