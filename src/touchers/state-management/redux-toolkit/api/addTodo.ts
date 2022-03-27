@@ -1,4 +1,4 @@
-import { ITodo } from "src/touchers/state-management/redux-toolkit/TestPage/api/fetchTodos";
+import { ITodo } from "src/touchers/state-management/redux-toolkit/api/fetchTodos";
 
 const addTodo = async (value: string): Promise<ITodo> => {
     const result = await fetch("http://localhost:3001/todos", {

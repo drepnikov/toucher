@@ -1,36 +1,36 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { WithReduxThunkRootState } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithReduxThunk/store";
+import { WithReduxThunkRootState } from "src/touchers/state-management/redux-toolkit/stores/WithReduxThunk/store";
 import {
     fetchTodos,
     ITodo,
-} from "src/touchers/state-management/redux-toolkit/TestPage/api/fetchTodos";
-import { addTodo } from "src/touchers/state-management/redux-toolkit/TestPage/api/addTodo";
-import { toggleTodoCompleted } from "src/touchers/state-management/redux-toolkit/TestPage/api/toggleTodoCompleted";
-import { deleteTodo } from "src/touchers/state-management/redux-toolkit/TestPage/api/deleteTodo";
+} from "src/touchers/state-management/redux-toolkit/api/fetchTodos";
+import { addTodo } from "src/touchers/state-management/redux-toolkit/api/addTodo";
+import { toggleTodoCompleted } from "src/touchers/state-management/redux-toolkit/api/toggleTodoCompleted";
+import { deleteTodo } from "src/touchers/state-management/redux-toolkit/api/deleteTodo";
 
-interface ITodosInitialState {
+interface ITodosState {
     todos: ITodo[];
     loading: boolean;
     error: null | string;
 }
 
-const initialState: ITodosInitialState = {
+const initialState: ITodosState = {
     todos: [],
     loading: false,
     error: null,
 };
 
-const handlerPending = (state: ITodosInitialState) => {
+const handlerPending = (state: ITodosState) => {
     state.loading = true;
 };
 
-const handlerReject = (state: ITodosInitialState, action: any) => {
+const handlerReject = (state: ITodosState, action: any) => {
     state.loading = false;
     state.error = String(action.payload);
 };
 
 // async actions
-export const fetchTodosAction = createAsyncThunk(
+export const fetchTodosThunkAction = createAsyncThunk(
     "Todos/fetchTodos",
     async (_, { rejectWithValue }) => {
         try {
@@ -40,39 +40,39 @@ export const fetchTodosAction = createAsyncThunk(
         }
     }
 );
-export const addTodoAction = createAsyncThunk(
+export const addTodoThunkAction = createAsyncThunk(
     "Todos/addTodo",
     async (value: string, { rejectWithValue, dispatch }) => {
         try {
             await addTodo(value);
 
-            dispatch(fetchTodosAction());
+            dispatch(fetchTodosThunkAction());
         } catch (e: any) {
             return rejectWithValue(e.message);
         }
     }
 );
 
-export const toggleTodoCompletedAction = createAsyncThunk(
+export const toggleTodoCompletedThunkAction = createAsyncThunk(
     "Todos/toggleTodoCompleted",
     async ({ completed, id }: ITodo, { rejectWithValue, dispatch }) => {
         try {
             await toggleTodoCompleted(id, !completed);
 
-            dispatch(fetchTodosAction());
+            dispatch(fetchTodosThunkAction());
         } catch (e: any) {
             return rejectWithValue(e.message);
         }
     }
 );
 
-export const deleteTodoAction = createAsyncThunk(
+export const deleteTodoThunkAction = createAsyncThunk(
     "Todos/deleteTodo",
     async (id: number, { rejectWithValue, dispatch }) => {
         try {
             await deleteTodo(id);
 
-            dispatch(fetchTodosAction());
+            dispatch(fetchTodosThunkAction());
         } catch (e: any) {
             return rejectWithValue(e.message);
         }
@@ -91,15 +91,15 @@ const TodoListSlice = createSlice({
 
     extraReducers: (builder) => {
         builder
-            .addCase(fetchTodosAction.pending, handlerPending)
-            .addCase(fetchTodosAction.rejected, handlerReject)
-            .addCase(addTodoAction.pending, handlerPending)
-            .addCase(addTodoAction.rejected, handlerReject)
-            .addCase(deleteTodoAction.pending, handlerPending)
-            .addCase(deleteTodoAction.rejected, handlerReject)
-            .addCase(toggleTodoCompletedAction.pending, handlerPending)
-            .addCase(toggleTodoCompletedAction.rejected, handlerReject)
-            .addCase(fetchTodosAction.fulfilled, (state, action) => {
+            .addCase(fetchTodosThunkAction.pending, handlerPending)
+            .addCase(fetchTodosThunkAction.rejected, handlerReject)
+            .addCase(addTodoThunkAction.pending, handlerPending)
+            .addCase(addTodoThunkAction.rejected, handlerReject)
+            .addCase(deleteTodoThunkAction.pending, handlerPending)
+            .addCase(deleteTodoThunkAction.rejected, handlerReject)
+            .addCase(toggleTodoCompletedThunkAction.pending, handlerPending)
+            .addCase(toggleTodoCompletedThunkAction.rejected, handlerReject)
+            .addCase(fetchTodosThunkAction.fulfilled, (state, action) => {
                 if (state.error) state.error = null;
                 state.loading = false;
                 state.todos = action.payload;

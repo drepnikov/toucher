@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { BottomNav } from "src/core/components/BottomNavigation/BottomNav";
 import { Container, Paper } from "@mui/material";
-import { ReduxToolkitToucher } from "src/touchers/state-management/redux-toolkit/TestPage/ReduxToolkitToucher";
+import { ReduxToolkitToucher } from "src/touchers/state-management/redux-toolkit/ReduxToolkitToucher";
 
 interface IAppProps {}
 

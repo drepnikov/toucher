@@ -1,12 +1,12 @@
 import * as React from "react";
-import { WithReduxThunk } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithReduxThunk/WithReduxThunk";
-import { WithReduxThunkStore } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithReduxThunk/store";
+import { WithReduxThunk } from "src/touchers/state-management/redux-toolkit/stores/WithReduxThunk/WithReduxThunk";
+import { WithReduxThunkStore } from "src/touchers/state-management/redux-toolkit/stores/WithReduxThunk/store";
 import { Provider } from "react-redux";
 import { Tab, Tabs } from "@mui/material";
 import { useCallback, useState } from "react";
 import { PageHeader } from "src/core/components/PageHeader/PageHeader";
-import { OnlyLocalStore } from "src/touchers/state-management/redux-toolkit/TestPage/stores/OnlyLocal/store";
-import { OnlyLocal } from "src/touchers/state-management/redux-toolkit/TestPage/stores/OnlyLocal/OnlyLocal";
+import { OnlyLocalStore } from "src/touchers/state-management/redux-toolkit/stores/OnlyLocal/store";
+import { OnlyLocal } from "src/touchers/state-management/redux-toolkit/stores/OnlyLocal/OnlyLocal";
 
 enum TabsEnum {
     withReduxThunk,
@@ -36,11 +36,11 @@ const ReduxToolkitToucher: React.FC<IReduxToolkitToucherProps> = () => {
                     label="Серверное состояние (redux-thunk)"
                     value={TabsEnum.withReduxThunk}
                 />
+                <Tab label="Локальное состояние" value={TabsEnum.onlyLocal} />
                 <Tab
                     label="Серверное состояние (rtk-query)"
                     value={TabsEnum.withRTKQuery}
                 />
-                <Tab label="Локальное состояние" value={TabsEnum.onlyLocal} />
             </Tabs>
 
             {currentTab === TabsEnum.withReduxThunk && (

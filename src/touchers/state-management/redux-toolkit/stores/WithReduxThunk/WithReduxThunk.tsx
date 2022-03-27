@@ -1,16 +1,16 @@
 import * as React from "react";
-import { useAppDispatch } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithReduxThunk/hooks/useAppDispatch";
-import { useAppSelector } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithReduxThunk/hooks/useAppSelector";
+import { useAppDispatch } from "src/touchers/state-management/redux-toolkit/stores/WithReduxThunk/hooks/useAppDispatch";
+import { useAppSelector } from "src/touchers/state-management/redux-toolkit/stores/WithReduxThunk/hooks/useAppSelector";
 import {
-    addTodoAction,
+    addTodoThunkAction,
     clearError,
-    deleteTodoAction,
-    fetchTodosAction,
+    deleteTodoThunkAction,
+    fetchTodosThunkAction,
     selectErrorStatus,
     selectLoadingStatus,
     selectTodos,
-    toggleTodoCompletedAction,
-} from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithReduxThunk/slices/TodoListSlice";
+    toggleTodoCompletedThunkAction,
+} from "src/touchers/state-management/redux-toolkit/stores/WithReduxThunk/slices/TodoListSlice";
 import { useEffect, useState } from "react";
 import { LoaderPopup } from "src/core/components/Loader/LoaderPopup";
 import { ErrorPopup } from "src/core/components/ErrorPopup/ErrorPopup";
@@ -40,7 +40,7 @@ const WithReduxThunk: React.FC<IWithReduxThunkProps> = () => {
     const [newWordValue, setNewWordValue] = useState("");
 
     useEffect(() => {
-        dispatch(fetchTodosAction());
+        dispatch(fetchTodosThunkAction());
     }, [dispatch]);
 
     return (
@@ -64,7 +64,9 @@ const WithReduxThunk: React.FC<IWithReduxThunkProps> = () => {
                                 secondaryAction={
                                     <IconButton
                                         onClick={() => {
-                                            dispatch(deleteTodoAction(todo.id));
+                                            dispatch(
+                                                deleteTodoThunkAction(todo.id)
+                                            );
                                         }}
                                         edge="end"
                                     >
@@ -79,7 +81,7 @@ const WithReduxThunk: React.FC<IWithReduxThunkProps> = () => {
                                             checked={todo.completed}
                                             onChange={() => {
                                                 dispatch(
-                                                    toggleTodoCompletedAction(
+                                                    toggleTodoCompletedThunkAction(
                                                         todo
                                                     )
                                                 );
@@ -105,7 +107,7 @@ const WithReduxThunk: React.FC<IWithReduxThunkProps> = () => {
                         <Button
                             disabled={!newWordValue.length}
                             onClick={() => {
-                                dispatch(addTodoAction(newWordValue));
+                                dispatch(addTodoThunkAction(newWordValue));
 
                                 setNewWordValue("");
                             }}

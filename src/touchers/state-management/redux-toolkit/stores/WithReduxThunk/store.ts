@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { TodoListReducer } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithReduxThunk/slices/TodoListSlice";
+import { TodoListReducer } from "src/touchers/state-management/redux-toolkit/stores/WithReduxThunk/slices/TodoListSlice";
 
 export const WithReduxThunkStore = configureStore({
     reducer: {
