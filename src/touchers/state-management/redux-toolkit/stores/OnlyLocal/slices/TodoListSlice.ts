@@ -16,7 +16,7 @@ const TodoListSlice = createSlice({
                 completed: false,
             });
         },
-        removeTodoLocal: (store, action: PayloadAction<number>) => {
+        deleteTodoLocal: (store, action: PayloadAction<number>) => {
             store.todos = store.todos.filter(
                 (todo) => todo.id !== action.payload
             );
@@ -31,7 +31,7 @@ const TodoListSlice = createSlice({
     },
 });
 
-export const { removeTodoLocal, addTodoLocal, toggleTodoCompletedLocal } =
+export const { deleteTodoLocal, addTodoLocal, toggleTodoCompletedLocal } =
     TodoListSlice.actions;
 export const TodoListReducer = TodoListSlice.reducer;
 

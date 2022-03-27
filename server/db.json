@@ -7,7 +7,7 @@
     },
     {
       "value": "Привет мир",
-      "completed": false,
+      "completed": true,
       "id": 6
     },
     {
@@ -22,8 +22,13 @@
     },
     {
       "value": "Привет!",
-      "completed": false,
+      "completed": true,
       "id": 10
+    },
+    {
+      "value": "12321",
+      "completed": false,
+      "id": 11
     }
   ]
 }
