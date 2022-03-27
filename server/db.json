@@ -7,13 +7,23 @@
     },
     {
       "value": "Привет мир",
-      "completed": true,
+      "completed": false,
       "id": 6
     },
     {
       "value": "123123",
       "completed": false,
       "id": 7
+    },
+    {
+      "value": "Сколько всего",
+      "completed": false,
+      "id": 8
+    },
+    {
+      "value": "123",
+      "completed": false,
+      "id": 9
     }
   ]
 }
