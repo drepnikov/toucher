@@ -1,1 +1,3 @@
-# toucher
+# Toucher
+
+`npm run dev`

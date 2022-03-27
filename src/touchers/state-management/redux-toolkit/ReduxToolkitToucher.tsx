@@ -7,6 +7,8 @@ import { useCallback, useState } from "react";
 import { PageHeader } from "src/core/components/PageHeader/PageHeader";
 import { OnlyLocalStore } from "src/touchers/state-management/redux-toolkit/stores/OnlyLocal/store";
 import { OnlyLocal } from "src/touchers/state-management/redux-toolkit/stores/OnlyLocal/OnlyLocal";
+import { WithRTKQuery } from "src/touchers/state-management/redux-toolkit/stores/WithRTKQuery/WithRTKQuery";
+import { WithRTKQueryStore } from "src/touchers/state-management/redux-toolkit/stores/WithRTKQuery/store";
 
 enum TabsEnum {
     withReduxThunk,
@@ -17,7 +19,7 @@ enum TabsEnum {
 interface IReduxToolkitToucherProps {}
 
 const ReduxToolkitToucher: React.FC<IReduxToolkitToucherProps> = () => {
-    const [currentTab, setCurrentTab] = useState(TabsEnum.withReduxThunk);
+    const [currentTab, setCurrentTab] = useState(TabsEnum.withRTKQuery);
     const changeTabHandler = useCallback((_: any, val: TabsEnum) => {
         setCurrentTab(val);
     }, []);
@@ -52,6 +54,12 @@ const ReduxToolkitToucher: React.FC<IReduxToolkitToucherProps> = () => {
             {currentTab === TabsEnum.onlyLocal && (
                 <Provider store={OnlyLocalStore}>
                     <OnlyLocal />
+                </Provider>
+            )}
+
+            {currentTab === TabsEnum.withRTKQuery && (
+                <Provider store={WithRTKQueryStore}>
+                    <WithRTKQuery />
                 </Provider>
             )}
         </div>
