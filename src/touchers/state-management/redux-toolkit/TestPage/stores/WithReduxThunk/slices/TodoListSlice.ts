@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { TestPageRootState } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithoutRTKQuery/store";
+import { WithReduxThunkRootState } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithReduxThunk/store";
 import {
     fetchTodos,
     ITodo,
@@ -114,8 +114,9 @@ export const { clearError } = TodoListSlice.actions;
 export const TodoListReducer = TodoListSlice.reducer;
 
 // selectors
-export const selectTodos = (state: TestPageRootState) => state.TodoList.todos;
-export const selectLoadingStatus = (state: TestPageRootState) =>
+export const selectTodos = (state: WithReduxThunkRootState) =>
+    state.TodoList.todos;
+export const selectLoadingStatus = (state: WithReduxThunkRootState) =>
     state.TodoList.loading;
-export const selectErrorStatus = (state: TestPageRootState) =>
+export const selectErrorStatus = (state: WithReduxThunkRootState) =>
     state.TodoList.error;

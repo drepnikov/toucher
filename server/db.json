@@ -6,19 +6,14 @@
       "completed": false
     },
     {
-      "value": "Hello2",
-      "completed": false,
-      "id": 2
-    },
-    {
       "value": "Привет мир",
       "completed": true,
       "id": 6
     },
     {
-      "value": "456",
+      "value": "123123",
       "completed": false,
-      "id": 8
+      "id": 7
     }
   ]
 }

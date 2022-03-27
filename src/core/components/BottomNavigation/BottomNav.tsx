@@ -1,12 +1,10 @@
 import * as React from "react";
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import Develop from "@mui/icons-material/Construction";
 import { useState } from "react";
 
 export enum BottomNavItemsEnum {
-    TestPages,
-    About,
+    Touchers,
 }
 
 interface IBottomNavProps {
@@ -14,9 +12,7 @@ interface IBottomNavProps {
 }
 
 const BottomNav: React.FC<IBottomNavProps> = () => {
-    const [currentPage, setCurrentPage] = useState(
-        BottomNavItemsEnum.TestPages
-    );
+    const [currentPage, setCurrentPage] = useState(BottomNavItemsEnum.Touchers);
 
     return (
         <Paper
@@ -34,14 +30,9 @@ const BottomNav: React.FC<IBottomNavProps> = () => {
                 showLabels
             >
                 <BottomNavigationAction
-                    value={BottomNavItemsEnum.TestPages}
-                    label={"Test Pages"}
+                    value={BottomNavItemsEnum.Touchers}
+                    label={"Touchers"}
                     icon={<RemoveRedEyeIcon />}
-                />
-                <BottomNavigationAction
-                    value={BottomNavItemsEnum.About}
-                    label={"About"}
-                    icon={<Develop />}
                 />
             </BottomNavigation>
         </Paper>

@@ -1,4 +1,19 @@
 import * as React from "react";
+import { useAppDispatch } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithReduxThunk/hooks/useAppDispatch";
+import { useAppSelector } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithReduxThunk/hooks/useAppSelector";
+import {
+    addTodoAction,
+    clearError,
+    deleteTodoAction,
+    fetchTodosAction,
+    selectErrorStatus,
+    selectLoadingStatus,
+    selectTodos,
+    toggleTodoCompletedAction,
+} from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithReduxThunk/slices/TodoListSlice";
+import { useEffect, useState } from "react";
+import { LoaderPopup } from "src/core/components/Loader/LoaderPopup";
+import { ErrorPopup } from "src/core/components/ErrorPopup/ErrorPopup";
 import {
     Box,
     Button,
@@ -11,28 +26,12 @@ import {
     ListItemText,
     TextField,
 } from "@mui/material";
-import { useEffect, useState } from "react";
-import { PageHeader } from "src/core/components/PageHeader/PageHeader";
-import { useTestPageDispatch } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithoutRTKQuery/hooks/useAppDispatch";
-import { useAppSelector } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithoutRTKQuery/hooks/useAppSelector";
-import {
-    addTodoAction,
-    clearError,
-    deleteTodoAction,
-    fetchTodosAction,
-    selectErrorStatus,
-    selectLoadingStatus,
-    selectTodos,
-    toggleTodoCompletedAction,
-} from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithoutRTKQuery/slices/TodoListSlice";
-import { LoaderPopup } from "src/core/components/Loader/LoaderPopup";
-import { ErrorPopup } from "src/core/components/ErrorPopup/ErrorPopup";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-interface ITestPageProps {}
+interface IWithReduxThunkProps {}
 
-const TestPage: React.FC<ITestPageProps> = () => {
-    const dispatch = useTestPageDispatch();
+const WithReduxThunk: React.FC<IWithReduxThunkProps> = () => {
+    const dispatch = useAppDispatch();
 
     const todos = useAppSelector(selectTodos);
     const loading = useAppSelector(selectLoadingStatus);
@@ -54,9 +53,7 @@ const TestPage: React.FC<ITestPageProps> = () => {
                     dispatch(clearError());
                 }}
             />
-            <div>
-                <PageHeader>Трогаем redux-toolkit</PageHeader>
-            </div>
+
             <div>
                 <List sx={{ width: "700px" }}>
                     {todos.map((todo) => {
@@ -113,7 +110,7 @@ const TestPage: React.FC<ITestPageProps> = () => {
                                 setNewWordValue("");
                             }}
                         >
-                            Добавить слово
+                            Добавить задание
                         </Button>
                     </Box>
                 </List>
@@ -122,4 +119,4 @@ const TestPage: React.FC<ITestPageProps> = () => {
     );
 };
 
-export { TestPage };
+export { WithReduxThunk };
