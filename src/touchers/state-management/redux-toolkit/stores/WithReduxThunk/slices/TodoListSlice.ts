@@ -1,37 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { WithReduxThunkRootState } from "src/touchers/state-management/redux-toolkit/stores/WithReduxThunk/store";
-import {
-    fetchTodos,
-    ITodo,
-} from "src/touchers/state-management/redux-toolkit/api/fetchTodos";
+import { fetchTodos } from "src/touchers/state-management/redux-toolkit/api/fetchTodos";
 import { addTodo } from "src/touchers/state-management/redux-toolkit/api/addTodo";
 import { toggleTodoCompleted } from "src/touchers/state-management/redux-toolkit/api/toggleTodoCompleted";
 import { deleteTodo } from "src/touchers/state-management/redux-toolkit/api/deleteTodo";
+import {
+    ITodoItem,
+    ITodoListState,
+    todoListInitialSlice,
+} from "src/touchers/state-management/redux-toolkit/common";
 
-interface ITodosState {
-    todos: ITodo[];
-    loading: boolean;
-    error: null | string;
-}
-
-const initialState: ITodosState = {
-    todos: [],
-    loading: false,
-    error: null,
-};
-
-const handlerPending = (state: ITodosState) => {
+const handlerPending = (state: ITodoListState) => {
     state.loading = true;
 };
 
-const handlerReject = (state: ITodosState, action: any) => {
+const handlerReject = (state: ITodoListState, action: any) => {
     state.loading = false;
     state.error = String(action.payload);
 };
 
 // async actions
 export const fetchTodosThunkAction = createAsyncThunk(
-    "Todos/fetchTodos",
+    "Todos/fetchTodosThunk",
     async (_, { rejectWithValue }) => {
         try {
             return fetchTodos();
@@ -41,7 +31,7 @@ export const fetchTodosThunkAction = createAsyncThunk(
     }
 );
 export const addTodoThunkAction = createAsyncThunk(
-    "Todos/addTodo",
+    "Todos/addTodoThunk",
     async (value: string, { rejectWithValue, dispatch }) => {
         try {
             await addTodo(value);
@@ -54,8 +44,8 @@ export const addTodoThunkAction = createAsyncThunk(
 );
 
 export const toggleTodoCompletedThunkAction = createAsyncThunk(
-    "Todos/toggleTodoCompleted",
-    async ({ completed, id }: ITodo, { rejectWithValue, dispatch }) => {
+    "Todos/toggleTodoCompletedThunk",
+    async ({ completed, id }: ITodoItem, { rejectWithValue, dispatch }) => {
         try {
             await toggleTodoCompleted(id, !completed);
 
@@ -67,7 +57,7 @@ export const toggleTodoCompletedThunkAction = createAsyncThunk(
 );
 
 export const deleteTodoThunkAction = createAsyncThunk(
-    "Todos/deleteTodo",
+    "Todos/deleteTodoThunk",
     async (id: number, { rejectWithValue, dispatch }) => {
         try {
             await deleteTodo(id);
@@ -81,8 +71,8 @@ export const deleteTodoThunkAction = createAsyncThunk(
 
 // slice
 const TodoListSlice = createSlice({
-    name: "Todos",
-    initialState,
+    name: "TodosThunk",
+    initialState: todoListInitialSlice,
     reducers: {
         clearError: (state) => {
             state.error = null;
@@ -111,7 +101,7 @@ const TodoListSlice = createSlice({
 export const { clearError } = TodoListSlice.actions;
 
 // reducer
-export const TodoListReducer = TodoListSlice.reducer;
+export const TodoListThunkReducer = TodoListSlice.reducer;
 
 // selectors
 export const selectTodos = (state: WithReduxThunkRootState) =>

@@ -16,14 +16,14 @@
       "id": 7
     },
     {
-      "value": "Сколько всего",
-      "completed": false,
-      "id": 8
-    },
-    {
       "value": "123",
       "completed": false,
       "id": 9
+    },
+    {
+      "value": "Привет!",
+      "completed": false,
+      "id": 10
     }
   ]
 }

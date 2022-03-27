@@ -1,7 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { TodoListReducer } from "src/touchers/state-management/redux-toolkit/stores/OnlyLocal/slices/TodoListSlice";
 
 export const OnlyLocalStore = configureStore({
-    reducer: {},
+    reducer: {
+        TodoList: TodoListReducer,
+    },
 });
 
 export type OnlyLocalRootState = ReturnType<typeof OnlyLocalStore.getState>;
