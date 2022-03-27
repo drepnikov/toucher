@@ -3,6 +3,7 @@ import {
     Box,
     Button,
     Checkbox,
+    IconButton,
     List,
     ListItem,
     ListItemButton,
@@ -17,6 +18,7 @@ import { useAppSelector } from "src/touchers/state-management/redux-toolkit/Test
 import {
     addTodoAction,
     clearError,
+    deleteTodoAction,
     fetchTodosAction,
     selectErrorStatus,
     selectLoadingStatus,
@@ -25,6 +27,7 @@ import {
 } from "src/touchers/state-management/redux-toolkit/TestPage/stores/WithoutRTKQuery/slices/TodoListSlice";
 import { LoaderPopup } from "src/core/components/Loader/LoaderPopup";
 import { ErrorPopup } from "src/core/components/ErrorPopup/ErrorPopup";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface ITestPageProps {}
 
@@ -61,11 +64,16 @@ const TestPage: React.FC<ITestPageProps> = () => {
                             <ListItem
                                 key={todo.id}
                                 sx={{ p: 0 }}
-                                // secondaryAction={
-                                //     <IconButton edge="end">
-                                //         <EditIcon />
-                                //     </IconButton>
-                                // }
+                                secondaryAction={
+                                    <IconButton
+                                        onClick={() => {
+                                            dispatch(deleteTodoAction(todo.id));
+                                        }}
+                                        edge="end"
+                                    >
+                                        <DeleteIcon />
+                                    </IconButton>
+                                }
                             >
                                 <ListItemButton>
                                     <ListItemIcon>

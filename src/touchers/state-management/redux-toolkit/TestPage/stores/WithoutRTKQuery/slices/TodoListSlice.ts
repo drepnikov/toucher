@@ -6,6 +6,7 @@ import {
 } from "src/touchers/state-management/redux-toolkit/TestPage/api/fetchTodos";
 import { addTodo } from "src/touchers/state-management/redux-toolkit/TestPage/api/addTodo";
 import { toggleTodoCompleted } from "src/touchers/state-management/redux-toolkit/TestPage/api/toggleTodoCompleted";
+import { deleteTodo } from "src/touchers/state-management/redux-toolkit/TestPage/api/deleteTodo";
 
 interface ITodosInitialState {
     todos: ITodo[];
@@ -65,6 +66,19 @@ export const toggleTodoCompletedAction = createAsyncThunk(
     }
 );
 
+export const deleteTodoAction = createAsyncThunk(
+    "Todos/deleteTodo",
+    async (id: number, { rejectWithValue, dispatch }) => {
+        try {
+            await deleteTodo(id);
+
+            dispatch(fetchTodosAction());
+        } catch (e: any) {
+            return rejectWithValue(e.message);
+        }
+    }
+);
+
 // slice
 const TodoListSlice = createSlice({
     name: "Todos",
@@ -81,6 +95,8 @@ const TodoListSlice = createSlice({
             .addCase(fetchTodosAction.rejected, handlerReject)
             .addCase(addTodoAction.pending, handlerPending)
             .addCase(addTodoAction.rejected, handlerReject)
+            .addCase(deleteTodoAction.pending, handlerPending)
+            .addCase(deleteTodoAction.rejected, handlerReject)
             .addCase(toggleTodoCompletedAction.pending, handlerPending)
             .addCase(toggleTodoCompletedAction.rejected, handlerReject)
             .addCase(fetchTodosAction.fulfilled, (state, action) => {

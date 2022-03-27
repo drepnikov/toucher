@@ -11,29 +11,14 @@
       "id": 2
     },
     {
-      "value": "123",
-      "completed": false,
-      "id": 3
-    },
-    {
-      "value": "Hello2",
-      "completed": false,
-      "id": 4
-    },
-    {
-      "value": "123",
-      "completed": false,
-      "id": 5
-    },
-    {
       "value": "Привет мир",
       "completed": true,
       "id": 6
     },
     {
-      "value": "Что тебе",
+      "value": "456",
       "completed": false,
-      "id": 7
+      "id": 8
     }
   ]
 }

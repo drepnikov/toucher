@@ -1,4 +1,4 @@
-const removeTodo = async (id: number) => {
+const deleteTodo = async (id: number) => {
     const result = await fetch(`http://localhost:3001/todos/${id}`, {
         method: "DELETE",
     });
@@ -8,4 +8,4 @@ const removeTodo = async (id: number) => {
     return result.json();
 };
 
-export { removeTodo };
+export { deleteTodo };
