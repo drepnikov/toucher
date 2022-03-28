@@ -1,0 +1,1 @@
+head, doctype boyd и т.д.
