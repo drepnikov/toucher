@@ -7,17 +7,17 @@
     },
     {
       "value": "Привет мир",
-      "completed": true,
+      "completed": false,
       "id": 6
     },
     {
       "value": "123123",
-      "completed": false,
+      "completed": true,
       "id": 7
     },
     {
       "value": "123",
-      "completed": false,
+      "completed": true,
       "id": 9
     },
     {
