@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Box, Button } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Header } from "src/core/components/Header/Header";
 
 interface IVideochatProps {}
@@ -22,7 +22,7 @@ const AudioAndVideo: React.FC<IVideochatProps> = () => {
                     cameraRef.current.play();
                 }
             })
-            .catch((e) => {
+            .catch(() => {
                 setCameraNotFound(true);
             });
     };
