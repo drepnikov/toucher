@@ -4,11 +4,12 @@ import { WithReduxThunkStore } from "src/touchers/state-management/redux-toolkit
 import { Provider } from "react-redux";
 import { Tab, Tabs } from "@mui/material";
 import { useCallback, useState } from "react";
-import { PageHeader } from "src/core/components/PageHeader/PageHeader";
+import { Header } from "src/core/components/Header/Header";
 import { OnlyLocalStore } from "src/touchers/state-management/redux-toolkit/stores/OnlyLocal/store";
 import { OnlyLocal } from "src/touchers/state-management/redux-toolkit/stores/OnlyLocal/OnlyLocal";
 import { WithRTKQuery } from "src/touchers/state-management/redux-toolkit/stores/WithRTKQuery/WithRTKQuery";
 import { WithRTKQueryStore } from "src/touchers/state-management/redux-toolkit/stores/WithRTKQuery/store";
+import { HeaderTypes } from "src/core/components/Header/Header";
 
 enum TabsEnum {
     withReduxThunk,
@@ -27,7 +28,7 @@ const ReduxToolkitToucher: React.FC<IReduxToolkitToucherProps> = () => {
     return (
         <div>
             <div>
-                <PageHeader>Трогаем redux-toolkit</PageHeader>
+                <Header type={HeaderTypes.page}>Трогаем redux-toolkit</Header>
             </div>
             <Tabs
                 sx={{ mb: "30px" }}

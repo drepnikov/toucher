@@ -7,8 +7,6 @@ interface IWithRTKQueryProps {}
 const WithRTKQuery: React.FC<IWithRTKQueryProps> = () => {
     const { data = [], isLoading, error, refetch } = useFetchTodosQuery();
 
-    console.log("ыть", error);
-
     return (
         <TodoAppLayout
             todos={data}

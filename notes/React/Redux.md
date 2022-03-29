@@ -4,3 +4,5 @@ https://www.youtube.com/watch?v=uSwe-5dPrV8&ab_channel=%D0%9C%D0%B8%D1%85%D0%B0%
 
 вспомни mapStateToProps
 вспомни mapDispatchToProps
+
+потрогай redux-persist ?
